@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>HeyTaxi</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+  <body>
+  
+    <input type="button" value="List Drivers" onclick="list_drivers();">
+    <br>
+    <div class="drivers">
+      
+    </div>
+
+  </body>
+</html>
+
+<script>
+  function list_drivers() {
+    $.get('/driver', (data) => {
+      var html = '';
+      for(var i = 0; i < data.length; i ++) {
+        html += data[i].first_name + ' ' + data[i].last_name + ' ' + data[i].phone + '</br>';
+        $("div.drivers").html(html);
+      }
+    })
+  }
+</script>
