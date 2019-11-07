@@ -10,35 +10,9 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="assets/style.css">
   </head>
 
   <body>
-  
-    <button type="button" class="btn btn-info btn-lg" onclick="show_drivers()">Show Drivers</button>
-    
-    <br>
-
-    <div class="drivers">
-      
-    </div>
-
+    <h1>Welcome to HeyTaxi</h1>
   </body>
 </html>
-
-<script>
-  function list_drivers(data) {
-    var html = '';
-      for(var i = 0; i < data.length; i ++) {
-        html += data[i].first_name + ' ' + data[i].last_name + ' ' + data[i].phone + '</br>';
-        $("div.drivers").html(html);
-      }
-  }
-
-  function show_drivers() {
-    $.get('/company/driver', (data) => {
-      list_drivers(data);
-    })
-  }
-
-</script>

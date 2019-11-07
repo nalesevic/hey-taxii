@@ -3,8 +3,9 @@ const mongojs = require('mongojs');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 
+// if app is not running on Heroku
 let config;
-if(!(process.env._ && process.env._.indexOf("heroku"))) {
+if((process.env._ && process.env._.indexOf("heroku"))) {
     config = require('./config.js');
 }
 
@@ -12,8 +13,9 @@ const app = express();
 const port = process.env.PORT || 3000;
 const db = mongojs(process.env.MONGODB_URL || config.MONGODB_URL);
 
-app.use('/company',express.static('public'));
-app.use('/', express.static('company'));
+app.use('/', express.static('public'));
+app.use('/company',express.static('company'));
+app.use('/passenger',express.static('passenger'));
 app.use(bodyParser.json());
 
 // Global Middlewear
