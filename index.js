@@ -1,6 +1,7 @@
 const express = require('express');
 const mongojs = require('mongojs');
 const bodyParser = require('body-parser');
+const { google } = require('googleapis');
 const jwt = require('jsonwebtoken');
 
 let config;
@@ -11,7 +12,7 @@ if(!process.env.HEROKU) {
 const app = express();
 const port = process.env.PORT || 3000;
 const db = mongojs(process.env.MONGODB_URL || config.MONGODB_URL);
-    
+
 app.use('/company',express.static('public'));
 app.use(bodyParser.json());
 
@@ -31,8 +32,6 @@ require('./routes/company.js')(company_router, db, mongojs, config, jwt);
 app.use('/company', company_router);
 
 // Google Authentication
-
-const { google } = require('googleapis');
 const oauth2Client = new google.auth.OAuth2(
     process.env.CLIENT_ID || config.CLIENT_ID,
     process.env.CLIENT_SECRET || config.CLIENT_SECRET,
