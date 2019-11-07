@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 let config;
 if(!process.env.HEROKU) {
-    //config = require('./config.js');
+    config = require('./config.js');
 }
 
 const app = express();
