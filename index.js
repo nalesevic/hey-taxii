@@ -1,7 +1,6 @@
 const express = require('express');
 const mongojs = require('mongojs');
 const bodyParser = require('body-parser');
-const { google } = require('googleapis');
 const jwt = require('jsonwebtoken');
 
 let config;
@@ -41,6 +40,7 @@ require('./routes/public.js')(public_router, db, mongojs, config, jwt);
 app.use('/', public_router);
 
 // Google Authentication
+const { google } = require('googleapis');
 const oauth2Client = new google.auth.OAuth2(
     process.env.CLIENT_ID || config.CLIENT_ID,
     process.env.CLIENT_SECRET || config.CLIENT_SECRET,
