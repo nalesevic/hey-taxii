@@ -4,8 +4,7 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 
 let config;
-if(!process.env.HEROKU) {
-    console.log("This is process env Heroku" + process.env.HEROKU);
+if(!(process.env._ && process.env._.indexOf("heroku"))) {
     config = require('./config.js');
 }
 
