@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 
 let config;
 if(!process.env.HEROKU) {
-    config = require('./config');
+    config = require('./config.js');
 }
 
 const app = express();
@@ -14,7 +14,7 @@ const port = process.env.PORT || 3000;
 const db = mongojs(process.env.MONGODB_URL || config.MONGODB_URL);
 
 app.use('/company',express.static('public'));
-app.use('/', expres.static('company'));
+app.use('/', express.static('company'));
 app.use(bodyParser.json());
 
 // Global Middlewear
