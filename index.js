@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 
 let config;
 if(!process.env.HEROKU) {
+    console.log("This is process env Heroku" + process.env.HEROKU);
     config = require('./config.js');
 }
 
