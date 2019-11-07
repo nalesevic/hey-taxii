@@ -14,6 +14,7 @@ const port = process.env.PORT || 3000;
 const db = mongojs(process.env.MONGODB_URL || config.MONGODB_URL);
 
 app.use('/company',express.static('public'));
+app.use('/', expres.static('company'));
 app.use(bodyParser.json());
 
 // Global Middlewear
@@ -34,6 +35,10 @@ app.use('/company', company_router);
 let passenger_router = express.Router();
 require('./routes/passenger.js')(passenger_router, db, mongojs, config, jwt);
 app.use('/passenger', passenger_router);
+
+let public_router = express.Router();
+require('./routes/public.js')(public_router, db, mongojs, config, jwt);
+app.use('/', public_router);
 
 // Google Authentication
 const oauth2Client = new google.auth.OAuth2(
