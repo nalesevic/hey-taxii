@@ -31,6 +31,10 @@ let company_router = express.Router();
 require('./routes/company.js')(company_router, db, mongojs, config, jwt);
 app.use('/company', company_router);
 
+let passenger_router = express.Router();
+require('./routes/passenger.js')(passenger_router, db, mongojs, config, jwt);
+app.use('/passenger', passenger_router);
+
 // Google Authentication
 const oauth2Client = new google.auth.OAuth2(
     process.env.CLIENT_ID || config.CLIENT_ID,
