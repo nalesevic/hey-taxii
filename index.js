@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 // if app is not running on Heroku
 let config;
-if(!process.env.HEROKU) {
+if (!(process.env._ && process.env._.indexOf("heroku"))) {
     config = require('./config.js');
 }
 
