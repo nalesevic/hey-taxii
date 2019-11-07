@@ -3,16 +3,14 @@ const mongojs = require('mongojs');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 
+const port = process.env.PORT || 3000;
+const app = express();
+
 // if app is not running on Heroku
 let config;
-
-const port = process.env.PORT || 3000;
-
 if (port == 3000) {
     config = require('./config.js');
 }
-
-const app = express();
 const db = mongojs(process.env.MONGODB_URL || config.MONGODB_URL);
 
 app.use('/', express.static('public'));
