@@ -3,7 +3,23 @@ module.exports = (router, db, mongojs, config, jwt) => {
     // log visit
     router.use((req, res, next) => {
         console.log('Company visit from ' + req.ip);
-        next();
+
+        let authorization = req.get('Authorization');
+        if(authorization) {
+            jwt.verify(authorization, config.JWT_SECRET || process.env.JWT_SECRET, (error, decoded) => {
+                if(error) {
+                    res.status(401).send('Unauthorized access');
+                } else {
+                    let user_type = decoded.type;
+                    if(user_type == 'company') {
+                        next();
+                    }
+                }
+            });
+        } else {
+            res.status(401).send('Unauthorized access');
+        }
+
     })
 
     router.get('/driver', (req, res) => {

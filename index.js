@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const port = process.env.PORT || 3000;
 const app = express();
 
-// if app is not running on Heroku
+// if app is running locally
 let config;
 if (port == 3000) {
     config = require('./config.js');
@@ -16,6 +16,7 @@ const db = mongojs(process.env.MONGODB_URL || config.MONGODB_URL);
 app.use('/', express.static('public'));
 app.use('/company',express.static('company'));
 app.use('/passenger',express.static('passenger'));
+app.use('/admin',express.static('admin'));
 app.use(bodyParser.json());
 
 // Global Middlewear
@@ -68,7 +69,7 @@ app.get('/login', (req, res) => {
 
               db.user.findAndModify({ 
                   query: { email: data.email },
-                  update: { $setOnInsert: { email: data.email, name: data.name, signup_time: new Date(), type: 'passenger' } },
+                  update: { $setOnInsert: { email: data.email, name: data.name, signup_time: new Date(), type: 'company' } },
                   new: true,
                   upsert: true  
               }, (error, doc) => {
