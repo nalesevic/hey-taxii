@@ -1,3 +1,6 @@
+// Nizam Alesevic
+
+// libraries
 const express = require('express');
 const mongojs = require('mongojs');
 const bodyParser = require('body-parser');
@@ -13,6 +16,7 @@ if (port == 3000) {
 }
 const db = mongojs(process.env.MONGODB_URL || config.MONGODB_URL);
 
+// static routes
 app.use('/', express.static('public'));
 app.use('/company',express.static('company'));
 app.use('/passenger',express.static('passenger'));

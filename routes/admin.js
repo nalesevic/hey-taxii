@@ -20,4 +20,22 @@ module.exports = (router, db, mongojs, config, jwt) => {
 
     });
 
+    router.post('/company', (req, rest) => {
+        db.company.insert(req.body, (error, doc) => res.json(doc));
+    });
+
+    router.put('/company/:id', (req, rest) => {
+        let id = req.params.id;
+        db.company.findAndModify({
+            query: { _id: mongojs.ObjectId(id) },
+            update: { $set: req.body },
+            new: true
+        }, (error, doc) => res.json(doc));
+    });
+
+    router.delete('/company/:id', (req, rest) => {
+        let id = req.params.id;
+        db.company.remove({ _id: mongojs.ObjectId(id) }, (error, doc) => res.json(doc));
+    });
+
 }
