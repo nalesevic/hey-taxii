@@ -6,21 +6,21 @@ const mongojs = require('mongojs');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const app = express();
 
 // if app is running locally
 let config;
-if (port == 3000) {
+if (port == 3001) {
     config = require('./config.js');
 }
 const db = mongojs(process.env.MONGODB_URL || config.MONGODB_URL);
 
 // static routes
-app.use('/', express.static('public'));
-app.use('/company',express.static('company'));
-app.use('/passenger',express.static('passenger'));
-app.use('/admin',express.static('admin'));
+if(port == 3001)
+    app.use('/', express.static('./../frontend/public'));
+else
+    app.use('/', express.static('./../frontend/build'));
 app.use(bodyParser.json());
 
 // Global Middlewear
