@@ -6,18 +6,18 @@ const mongojs = require('mongojs');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 4000;
 const app = express();
 
 // if app is running locally
 let config;
-if (port == 3001) {
+if (port == 4000) {
     config = require('./config.js');
 }
 const db = mongojs(process.env.MONGODB_URL || config.MONGODB_URL);
 
 // static routes
-if(port == 3001)
+if(port == 4000)
     app.use('/', express.static('./../frontend/public'));
 else
     app.use('/', express.static('./../frontend/build'));
