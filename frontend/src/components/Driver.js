@@ -14,6 +14,10 @@ class Driver extends Component {
         console.log("Driver component mounted");
     }
 
+    shouldComponentUpdate = (nextProps, nextState) => {
+
+    }
+
     componentWillUnmount = () => {
         console.log("Driver component unmounted");
     }

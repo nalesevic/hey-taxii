@@ -6,10 +6,15 @@ class Hello extends Component {
         occupation: 'Web Developer'
     }
 
+    handleClick = (e) => {
+
+    }
+
     render() {
         return(
             <div>
                 <h1>Hello {this.state.name}. I see you are {this.state.occupation}. NOICE </h1>
+                <button onClick={ this.handleClick }>Click me</button>
             </div>
         )
     }
