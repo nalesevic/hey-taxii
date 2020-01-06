@@ -2,6 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Hello from './components/Hello';
+import Driver from './components/Driver'
+import Vehicle from './components/Vehicle'
 
 function App() {
   return (
@@ -23,6 +25,13 @@ function App() {
       <div>
         <Hello />
       </div>
+
+      <Switch>
+        <Route exact path='/' component={Hello} />
+        <Route path='/driver' component={Driver} />
+        <Route path='/vehicle' component={Vehicle}/>
+       </Switch>
+
     </div>
   );
 }
