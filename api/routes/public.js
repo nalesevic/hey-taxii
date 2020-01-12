@@ -6,6 +6,4 @@ module.exports = (router, db, mongojs, config, jwt) => {
         next();
     })
     
-    
-
 }
