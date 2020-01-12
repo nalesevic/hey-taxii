@@ -33,9 +33,9 @@ class Login extends Component {
         axios.post('http://localhost:4000/login', this.state).then(response => {
             window.localStorage.setItem('jwtToken', response.data[0]);
             this.setState({ userType: response.data[1] });
-            if(this.state.userType == 'company')
+            if(this.state.userType === 'company')
                 this.props.history.push('/company');
-            else if(this.state.userType == 'admin')
+            else if(this.state.userType === 'admin')
                 this.props.history.push('/admin');        
           }).catch((error) => {
               console.log(error);

@@ -97,12 +97,16 @@ class DriverInfo extends Component {
                                 <Form.Control name='driverPassword' type="text" onChange = { this.handlePasswordChange } placeholder="Enter driver password" />
                             </Form.Group>
 
-                            <Button variant="success" type="submit">
-                                Register
+                            <Button variant="warning" type="submit">
+                                Update
                             </Button>
                             <br></br> <br></br>
                         </Form>
 
+                    </Row>
+
+                    <Row>
+                        <span className="card-text"><Button onClick={() => { this.handleDeleteDriver() }} >Delete</Button></span>
                     </Row>
                 </Container>
                

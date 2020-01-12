@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Form, Button, Container, Row } from 'react-bootstrap'
 import AddDriver from './AddDriver'
 import ListDrivers from './ListDrivers'
+import DriverInfo from './DriverInfo';
 
 class Driver extends Component {
 
@@ -10,41 +11,23 @@ class Driver extends Component {
     super(props);
     this.state.drivers = props.drivers;
     this.handleAddDriver = this.handleAddDriver.bind(this);
-    this.handleDeleteDriver = this.handleDeleteDriver.bind(this);
   }
 
   state = {
     drivers: {},
-    showDriverForm: false
+    showDriverForm: false,
+    showDriverInfo: false
   }
 
   addToList = (driver) => {
     console.log("ADDING TO LIST " + driver);
     let d = this.state.drivers;
     d.push(driver)
-    this.setState({drivers: d});
-     alert(JSON.stringify(this.state.drivers, null, 4));
+    this.setState({ drivers: d });
+    alert(JSON.stringify(this.state.drivers, null, 4));
   }
 
   deleteDriver = (id) => {
-    console.log("jesam li tu");
-    const drivers = this.state.drivers.filter(driver => {
-      return driver._id !== id
-    });
-    this.setState({
-      drivers
-    });
-  }
-
-  handleAddDriver() {
-    if (this.state.showDriverForm == false)
-      this.setState({ showDriverForm: true })
-    else
-      this.setState({ showDriverForm: false })
-  }
-
-  handleDeleteDriver(id) {
-    //alert(JSON.stringify(this.state.drivers, null, 4));
     let jwtToken = window.localStorage.getItem('jwtToken');
     const headers = {
       'Authorization': jwtToken
@@ -54,8 +37,20 @@ class Driver extends Component {
 
     axios.delete(`http://localhost:4000/company/drivers/${id}`, { headers: headers })
       .then(res => {
-        console.log("Izbrisao sam");
       })
+    const drivers = this.state.drivers.filter(driver => {
+      return driver._id !== id
+    });
+    this.setState({
+      drivers
+    });
+  }
+
+  handleAddDriver() {
+    if (this.state.showDriverForm === false)
+      this.setState({ showDriverForm: true })
+    else
+      this.setState({ showDriverForm: false })
   }
 
   render() {
@@ -82,7 +77,7 @@ class Driver extends Component {
           {this.state.showDriverForm ? <AddDriver addToList={this.addToList} /> : null}
         </Container>
         <div className="container">
-         <ListDrivers drivers={this.state.drivers} deleteDriver={this.deleteDriver} />
+          <ListDrivers drivers={this.state.drivers} deleteDriver={this.deleteDriver} />
         </div>
       </div>
     )
