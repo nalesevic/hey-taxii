@@ -13,10 +13,10 @@ class CompanyProfile extends Component {
 
     state = {
         company: {
-            companyAddress: '',
-            companyPhone: '',
-            companyPassword: '',
-            companyName: ''
+            address: '',
+            phone: '',
+            password: '',
+            name: ''
         }
     }
 
@@ -26,10 +26,10 @@ class CompanyProfile extends Component {
         let jwtToken = window.localStorage.getItem("jwtToken");
         console.log(jwtToken);
         const data = {
-            name: this.state.companyName,
-            password: this.state.companyPassword,
-            address: this.state.companyAddress,
-            phone: this.state.companyPhone
+            name: this.state.name,
+            password: this.state.password,
+            address: this.state.address,
+            phone: this.state.phone
         }
         const headers = {
             'Authorization': jwtToken
@@ -46,25 +46,25 @@ class CompanyProfile extends Component {
 
     handleNameChange = (e) => {
         this.setState({
-            companyName: e.target.value,
+            name: e.target.value,
         })
     }
 
     handleAddressChange = (e) => {
         this.setState({
-            companyAddress: e.target.value,
+            address: e.target.value,
         })
     }
 
     handlePhoneChange = (e) => {
         this.setState({
-            companyPhone: e.target.value,
+            phone: e.target.value,
         })
     }
 
     handlePasswordChange = (e) => {
         this.setState({
-            companyPassword: e.target.value,
+            password: e.target.value,
         })
     }
 
@@ -80,25 +80,25 @@ class CompanyProfile extends Component {
                         <br></br>
                             <Form.Group>
                                 <Form.Label>Company name:</Form.Label>
-                                <Form.Control name='companyName' type="text" onChange = { this.handleNameChange }/>
+                                <Form.Control name='name' type="text" onChange = { this.handleNameChange }/>
                             </Form.Group>
 
                             <Form.Group>
                                 <Form.Label>Company address:</Form.Label>
-                                <Form.Control name='companyAddress' type="text" onChange = { this.handleAddressChange }/>
+                                <Form.Control name='address' type="text" onChange = { this.handleAddressChange }/>
                             </Form.Group>
 
                             <Form.Group>
                                 <Form.Label>Company phone:</Form.Label>
-                                <Form.Control name='companyPhone' type="text" onChange = { this.handlePhoneChange }  />
+                                <Form.Control name='phone' type="text" onChange = { this.handlePhoneChange }  />
                             </Form.Group>
 
                             <Form.Group>
                                 <Form.Label>Password:</Form.Label>
-                                <Form.Control name='companyPassword' type="password" onChange = { this.handlePasswordChange } />
+                                <Form.Control name='password' type="password" onChange = { this.handlePasswordChange } />
                             </Form.Group>
 
-                            <Button variant="success" type="submit" onClick = {this.updateCompany}>
+                            <Button variant="success" type="submit">
                                 Update
                             </Button>
                             <br></br> <br></br>

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
 
-class AddDriver extends Component {
+class DriverInfo extends Component {
     
     state = {
         first_name: '',
@@ -50,40 +50,13 @@ class AddDriver extends Component {
         })
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(this.state.password);
-        const driver = {...this.state};
-        let jwtToken = window.localStorage.getItem('jwtToken');
-        
-        const headers = {
-            'Authorization': jwtToken
-        }
-        axios.post('http://localhost:4000/company/drivers', this.state, { headers: headers } )
-        .then(res => {
-            console.log("Dobio od servera " + res.data._id);
-            driver._id = res.data._id;
-            this.props.addToList(driver);
-        })
-
-        this.setState({
-            first_name: '',
-            last_name: '',
-            email: '',
-            password: '',
-            vehicle: '',
-            address: '',
-            phone: ''
-        })
-
-    }
 
     render() {
         return (
 
             <div className = "admin-panel">
 
-            <div className = "addDriver-form">
+            <div className = "DriverInfo-form">
                 <Container>
                     <Row className='justify-content-center'>
                     
@@ -140,4 +113,4 @@ class AddDriver extends Component {
     }
 }
 
-export default AddDriver;
+export default DriverInfo;

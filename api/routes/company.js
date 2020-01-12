@@ -80,7 +80,7 @@ module.exports = (router, db, mongojs, config, jwt) => {
         db.driver.insert(data, (error, doc) => res.json(doc));
     })
     
-    router.put('/driver/:id', (req, res) => {
+    router.put('/drivers/:id', (req, res) => {
         var id = req.params.id;
         db.driver.findAndModify({
             query: { _id: mongojs.ObjectID(id) },
@@ -89,7 +89,7 @@ module.exports = (router, db, mongojs, config, jwt) => {
         }, (error, doc, lastErrorObject) => res.json(doc));
     })
     
-    router.delete('/driver/:id', (req, res) => {
+    router.delete('/drivers/:id', (req, res) => {
         var id = req.params.id;
         db.driver.remove({ _id: mongojs.ObjectID(id) }, [true], (error, doc) => res.json(doc));
     })
