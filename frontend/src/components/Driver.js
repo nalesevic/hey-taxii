@@ -27,24 +27,24 @@ class Driver extends Component {
     alert(JSON.stringify(this.state.drivers, null, 4));
   }
 
-  deleteDriver = (id) => {
-    let jwtToken = window.localStorage.getItem('jwtToken');
-    const headers = {
-      'Authorization': jwtToken
-    }
-    let index = this.state.drivers.findIndex(x => x._id === id);
-    this.state.drivers.splice(index, 1);
+  // deleteDriver = (id) => {
+  //   let jwtToken = window.localStorage.getItem('jwtToken');
+  //   const headers = {
+  //     'Authorization': jwtToken
+  //   }
+  //   let index = this.state.drivers.findIndex(x => x._id === id);
+  //   this.state.drivers.splice(index, 1);
 
-    axios.delete(`http://localhost:4000/company/drivers/${id}`, { headers: headers })
-      .then(res => {
-      })
-    const drivers = this.state.drivers.filter(driver => {
-      return driver._id !== id
-    });
-    this.setState({
-      drivers
-    });
-  }
+  //   axios.delete(`http://localhost:4000/company/drivers/${id}`, { headers: headers })
+  //     .then(res => {
+  //     })
+  //   const drivers = this.state.drivers.filter(driver => {
+  //     return driver._id !== id
+  //   });
+  //   this.setState({
+  //     drivers
+  //   });
+  // }
 
   handleAddDriver() {
     if (this.state.showDriverForm === false)
@@ -61,7 +61,8 @@ class Driver extends Component {
           <div className="driver card" key={driver._id}>
             <div className="card-content">
               <span className="card-title">{driver.first_name} {driver.last_name} {driver.vehicle} {driver.phone} </span>
-              <span className="card-text"><Button onClick={() => { this.handleDeleteDriver(driver._id) }} >Delete</Button></span>
+
+
             </div>
           </div>
         )

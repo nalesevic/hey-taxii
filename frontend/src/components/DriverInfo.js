@@ -4,7 +4,17 @@ import axios from 'axios'
 
 class DriverInfo extends Component {
     
+    constructor(props) {
+        super(props);
+        this.state.drivers = props.drivers;
+        this.state.driverID = props.driverID;
+        this.handleChange = this.handleChange.bind(this);
+        //alert(JSON.stringify(this.state.drivers, null, 4));
+
+    }
+
     state = {
+        driver: {},
         first_name: '',
         last_name: '',
         email: '',
@@ -14,44 +24,53 @@ class DriverInfo extends Component {
         phone: ''
     }
 
-    handleFirstNameChange = (e) => {
-        this.setState({
-            first_name: e.target.value,
-        })
+    componentDidMount() {
+        let currentDriver = {};
+        for(let i = 0; i < this.state.drivers.length; i ++) {
+            if(this.state.drivers[i]._id == this.state.driverID) {
+                currentDriver = this.state.drivers[i];
+                this.setState({driver: currentDriver});
+            }
+        }
+        //alert(JSON.stringify(currentDriver, null, 4));
     }
 
-    handleLastNameChange = (e) => {
+    handleChange(e) {
         this.setState({
-            last_name: e.target.value,
-        })
+          [e.target.name]: e.target.value
+        });
     }
 
-    handleEmailChange = (e) => {
-        this.setState({
-            email: e.target.value,
-        })
+    handleSubmit() {
+
     }
 
-    handlePasswordChange = (e) => {
-        this.setState({
-            password: e.target.value,
-        })
-    }
+    deleteDriver = (id) => {
+        let jwtToken = window.localStorage.getItem('jwtToken');
+        const headers = {
+          'Authorization': jwtToken
+        }
+        let index = this.state.drivers.findIndex(x => x._id === id);
+        this.state.drivers.splice(index, 1);
+    
+        axios.delete(`http://localhost:4000/company/drivers/${id}`, { headers: headers })
+          .then(res => {
+          })
+        const drivers = this.state.drivers.filter(driver => {
+          return driver._id !== id
+        });
 
-    handlePhoneChange = (e) => {
-        this.setState({
-            phone: e.target.value,
-        })
-    }
+        this.props.showInfo(true);
 
-    handleAddresChange = (e) => {
         this.setState({
-            address: e.target.value,
-        })
-    }
+          drivers
+        });
+      }
 
 
     render() {
+        
+
         return (
 
             <div className = "admin-panel">
@@ -64,37 +83,37 @@ class DriverInfo extends Component {
                         <br></br>
                             <Form.Group>
                                 <Form.Label>Driver first name:</Form.Label>
-                                <Form.Control name='driverName' type="text" onChange = { this.handleFirstNameChange } placeholder="Enter driver name" />
+                                <Form.Control name='first_name' type="text" onChange = { this.handleChange }  placeholder={this.state.driver.first_name} />
                             </Form.Group>
 
                             <Form.Group>
                                 <Form.Label>Driver last name:</Form.Label>
-                                <Form.Control type="text" onChange = { this.handleLastNameChange } placeholder="Enter driver last name" />
+                                <Form.Control name='last_name' type="text" onChange = { this.handleChange } placeholder={this.state.driver.last_name}  />
                             </Form.Group>
 
                             <Form.Group>
                                 <Form.Label>Driver Email:</Form.Label>
-                                <Form.Control name='driverEmail' type="text" onChange = { this.handleEmailChange } placeholder="Enter driver email" />
+                                <Form.Control name='email' type="text" onChange = { this.handleChange }  placeholder={this.state.driver.email} />
                             </Form.Group>
 
                             <Form.Group>
                                 <Form.Label>Driver phone:</Form.Label>
-                                <Form.Control type="number" onChange = { this.handleEmailChange } placeholder="Enter driver phone" />
+                                <Form.Control type="phone" onChange = { this.handleChange } placeholder={this.state.driver.phone} />
                             </Form.Group>
 
                             <Form.Group>
                                 <Form.Label>Driver vehicle:</Form.Label>
-                                <Form.Control name='driverName' type="text" onChange = { this.handleVehicleChange } placeholder="Enter driver vehicle" />
+                                <Form.Control name='vehicle' type="text" onChange = { this.handleChange } placeholder={this.state.driver.vehicle} />
                             </Form.Group>
 
                             <Form.Group>
                                 <Form.Label>Driver address:</Form.Label>
-                                <Form.Control name='driverName' type="text" onChange = { this.handleAddressChange } placeholder="Enter driver address" />
+                                <Form.Control name='address' type="text" onChange = { this.handleChange } placeholder={this.state.driver.address} />
                             </Form.Group>
 
                             <Form.Group>
                                 <Form.Label>Driver Password:</Form.Label>
-                                <Form.Control name='driverPassword' type="text" onChange = { this.handlePasswordChange } placeholder="Enter driver password" />
+                                <Form.Control name='password' type="text" onChange = { this.handleChange } />
                             </Form.Group>
 
                             <Button variant="warning" type="submit">
@@ -106,7 +125,7 @@ class DriverInfo extends Component {
                     </Row>
 
                     <Row>
-                        <span className="card-text"><Button onClick={() => { this.handleDeleteDriver() }} >Delete</Button></span>
+                     <span className="card-text"><Button onClick={() => { this.deleteDriver(this.state.driverID) }} >Delete</Button></span>
                     </Row>
                 </Container>
                

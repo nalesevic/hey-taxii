@@ -4,21 +4,29 @@ import DriverInfo from './DriverInfo'
 
 class ListDrivers extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state.drivers = props.drivers;
+        this.collapseInfo = this.collapseInfo.bind(this);
+    }
+
     state = {
         showDriverInfo: false,
         driverID: ''
     }
 
     driverInfo = (driverID) => {
-        console.log("bil vidio sta " + this.state.showDriverInfo);
         if (this.state.showDriverInfo === false) {
             this.setState({ showDriverInfo: true })
             this.setState({driverID: driverID});
         }
         else
             this.setState({ showDriverInfo: false })
-        console.log("bil vidio sta poslije " + this.state.showDriverInfo);
     
+      }
+
+      collapseInfo = (s) => {
+          this.setState({showDriverInfo: s});
       }
 
       render() {
@@ -26,8 +34,8 @@ class ListDrivers extends Component {
               this.props.drivers.map(driver => {
                   return (
                       <div className="collection-item" key={driver._id}>
-                          <span onClick={() => { this.driverInfo(driver._id) }}>{driver.first_name} <Button variant="danger" onClick={() => { this.props.deleteDriver(driver._id) }}>DELETE</Button> </span>
-                          {this.state.showDriverInfo && this.state.driverID === driver._id ? <DriverInfo driverID={this.state.driverID} /> : null}
+                          <span onClick={() => { this.driverInfo(driver._id) }}>{driver.first_name} </span>
+                          {this.state.showDriverInfo && this.state.driverID === driver._id ? <DriverInfo showInfo={this.collapseInfo} driverID={this.state.driverID} drivers={this.state.drivers} /> : null}
                       </div>
                   )
               })
