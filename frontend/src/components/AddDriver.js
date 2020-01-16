@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
+import config from '../config'
 
 class AddDriver extends Component {
     
@@ -34,7 +35,7 @@ class AddDriver extends Component {
         const headers = {
             'Authorization': jwtToken
         }
-        axios.post('http://localhost:4000/company/drivers', this.state, { headers: headers } )
+        axios.post(`${config.BASE_URL}/company/drivers`, this.state, { headers: headers } )
         .then(res => {
             console.log("Dobio od servera " + res.data._id);
             driver._id = res.data._id;

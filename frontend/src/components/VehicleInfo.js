@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
+import config from '../config'
 
 class VehicleInfo extends Component {
 
@@ -54,7 +55,7 @@ class VehicleInfo extends Component {
            type : this.state.type
         }
         let id = this.state.vehicleID;
-        axios.put(`http://localhost:4000/company/vehicles/${id}`, data, { headers: headers })
+        axios.put(`${config.BASE_URL}/company/vehicles/${id}`, data, { headers: headers })
             .then(res => {
                 this.setState({ vehicle: res.data })
                 for (let i = 0; i < this.state.vehicles.length; i++) {
@@ -73,7 +74,7 @@ class VehicleInfo extends Component {
         let index = this.state.vehicles.findIndex(x => x._id === id);
         this.state.vehicles.splice(index, 1);
 
-        axios.delete(`http://localhost:4000/company/vehicles/${id}`, { headers: headers })
+        axios.delete(`${config.BASE_URL}/company/vehicles/${id}`, { headers: headers })
             .then(res => {
             })
         const vehicles = this.state.vehicles.filter(vehicle => {

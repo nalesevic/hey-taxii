@@ -6,6 +6,7 @@ import Vehicle from './Vehicle'
 import CompanyProfile from './CompanyProfile'
 import axios from 'axios'
 import CompanyHome from './CompanyHome'
+import config from '../config'
 
 class Company extends Component {
 
@@ -19,14 +20,14 @@ class Company extends Component {
 
         let jwtToken = window.localStorage.getItem("jwtToken");
         
-        axios.get('http://localhost:4000/company/profile', { headers: { Authorization: jwtToken } } )
+        axios.get(`${config.BASE_URL}/company/profile`, { headers: { Authorization: jwtToken } } )
         .then(res => {
             this.setState({
                 company: res.data
             })
         })
 
-        axios.get('http://localhost:4000/company/drivers', { headers: { Authorization: jwtToken } } )
+        axios.get(`${config.BASE_URL}/company/drivers`, { headers: { Authorization: jwtToken } } )
         .then(res => {
             this.setState({
                 drivers: res.data
@@ -35,7 +36,7 @@ class Company extends Component {
             
         })
 
-        axios.get('http://localhost:4000/company/vehicles', { headers: { Authorization: jwtToken } } )
+        axios.get(`${config.BASE_URL}/company/vehicles`, { headers: { Authorization: jwtToken } } )
         .then(res => {
             this.setState({
                 vehicles: res.data

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap'
 import VehicleInfo from './VehicleInfo'
+import config from '../config'
 
 class ListVehicles extends Component {
 

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Form, Button, Container, Row } from 'react-bootstrap'
 import axios from 'axios';
+import config from '../config'
 
 class AddVehicle extends Component {
     
@@ -32,7 +33,7 @@ class AddVehicle extends Component {
         const headers = {
             'Authorization': jwtToken
         }
-        axios.post('http://localhost:4000/company/vehicles', this.state, { headers: headers } )
+        axios.post(`${config.BASE_URL}/company/vehicles`, this.state, { headers: headers } )
         .then(res => {
             console.log("Dobio od servera " + res.data._id);
             Vehicle._id = res.data._id;

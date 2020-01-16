@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
 import ChangePassword from './ChangePassword'
+import config from '../config'
+
 
 class CompanyProfile extends Component {
 
@@ -27,7 +29,7 @@ class CompanyProfile extends Component {
             'Authorization': jwtToken
         }
         
-        axios.put('http://localhost:4000/company/profile', this.state.company, { headers: headers })
+        axios.put(`${config.BASE_URL}/company/profile`, this.state.company, { headers: headers })
             .then(res => {
             })
         alert("Profile updated");

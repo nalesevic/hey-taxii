@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
+import config from '../config'
 
 class DriverInfo extends Component {
 
@@ -58,7 +59,7 @@ class DriverInfo extends Component {
             phone: this.state.phone
         }
         let id = this.state.driverID;
-        axios.put(`http://localhost:4000/company/drivers/${id}`, data, { headers: headers })
+        axios.put(`${config.BASE_URL}/company/drivers/${id}`, data, { headers: headers })
             .then(res => {
                 this.setState({ driver: res.data })
                 for (let i = 0; i < this.state.drivers.length; i++) {
@@ -77,7 +78,7 @@ class DriverInfo extends Component {
         let index = this.state.drivers.findIndex(x => x._id === id);
         this.state.drivers.splice(index, 1);
 
-        axios.delete(`http://localhost:4000/company/drivers/${id}`, { headers: headers })
+        axios.delete(`${config.BASE_URL}/company/drivers/${id}`, { headers: headers })
             .then(res => {
             })
         const drivers = this.state.drivers.filter(driver => {

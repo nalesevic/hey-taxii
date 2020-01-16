@@ -5,6 +5,7 @@ import './Login.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { faUserLock } from '@fortawesome/free-solid-svg-icons'
+import config from '../config'
 
 class Login extends Component {
 
@@ -30,7 +31,7 @@ class Login extends Component {
         e.preventDefault();
         console.log("handling submit");
 
-        axios.post('http://localhost:4000/login', this.state).then(response => {
+        axios.post(`${config.BASE_URL}/login`, this.state).then(response => {
             window.localStorage.setItem('jwtToken', response.data[0]);
             this.setState({ userType: response.data[1] });
             if (this.state.userType === 'company')

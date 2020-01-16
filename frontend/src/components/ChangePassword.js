@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
+import config from '../config'
 
 class ChangePassword extends Component {
 
@@ -22,7 +23,7 @@ class ChangePassword extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         let jwtToken = window.localStorage.getItem("jwtToken");
-        axios.get('http://localhost:4000/company/profile', { headers: { Authorization: jwtToken } } )
+        axios.get(`${config.BASE_URL}/company/profile`, { headers: { Authorization: jwtToken } } )
         .then(res => {
             let currentPassword = res.data.password;
             if(this.state.currPassword === currentPassword) {
@@ -36,7 +37,7 @@ class ChangePassword extends Component {
                         email: this.state.email
                     }
     
-                    axios.put('http://localhost:4000/company/password', data, { headers: headers })
+                    axios.put(`${config.BASE_URL}/company/password`, data, { headers: headers })
                         .then(res => {
                         })
                     alert("Password changed");

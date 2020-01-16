@@ -5,6 +5,7 @@ import { Button, Container, Row } from 'react-bootstrap'
 import AdminNavbar from './AdminNavbar'
 import Logout from './Logout'
 import axios from 'axios'
+import config from '../config'
 
 class Admin extends Component {
 
@@ -16,7 +17,7 @@ class Admin extends Component {
 
         let jwtToken = window.localStorage.getItem("jwtToken");
         
-        axios.get('http://localhost:4000/admin/company', { headers: { Authorization: jwtToken } } )
+        axios.get(`${config.BASE_URL}/admin/company`, { headers: { Authorization: jwtToken } } )
         .then(res => {
             this.setState({
                 companies: res.data
@@ -27,7 +28,7 @@ class Admin extends Component {
 
     registerCompany = (company) => {
         let jwtToken = window.localStorage.getItem("jwtToken");
-        axios.post('http://localhost:4000/admin/company', company, { headers: { Authorization: jwtToken } } )
+        axios.post(`${config.BASE_URL}/admin/company`, company, { headers: { Authorization: jwtToken } } )
         .then(res => {
             company._id = res.data._id;
             let companies = [...this.state.companies, company];
@@ -40,7 +41,7 @@ class Admin extends Component {
     deleteCompany = (id) => {
         console.log("Deleting company " + id);
         let jwtToken = window.localStorage.getItem("jwtToken");
-        axios.delete(`http://localhost:4000/admin/company/${id}`, { headers: { Authorization: jwtToken } })
+        axios.delete(`${config.BASE_URL}/admin/company/${id}`, { headers: { Authorization: jwtToken } })
             .then(res => {
                 const companies = this.state.companies.filter(company => {
                     return company._id !== id
