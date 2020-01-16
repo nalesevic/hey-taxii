@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nalesevic/hey-taxii.git"
+    "url": "git+https://github.com/nalesevic/hey-taxi-MERN.git"
   },
   "author": "Nizam",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nalesevic/hey-taxii/issues"
+    "url": "https://github.com/nalesevic/hey-taxi-MERN/issues"
   },
-  "homepage": "https://github.com/nalesevic/hey-taxii#readme",
+  "homepage": "https://github.com/nalesevic/hey-taxi-MERN#readme",
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^5.12.0",
     "body-parser": "^1.19.0",

@@ -58,7 +58,7 @@ class ChangePassword extends Component {
 
     render() {
         return (
-            <Container className="border">
+            <Container className="border justify-content-center'">
                 <Form onSubmit={this.handleSubmit}>
                     <br></br><br></br>
                     <Form.Group as={Row}>
