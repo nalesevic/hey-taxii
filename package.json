@@ -8,7 +8,7 @@
     "backend": "cd api && nodemon app.js",
     "dev": "concurrently --kill-others \"npm run backend\" \"npm run frontend\"",
     "install": "cd api && npm install && cd ../frontend && npm install",
-    "start": "cd frontend && npm run build && cd ../api && node app.js",
+    "start": "cd api && npm install && node app.js",
     "heroku-postbuild": "cd frontend && npm install && npm run build"
   },
   "repository": {
