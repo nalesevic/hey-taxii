@@ -16,11 +16,7 @@ if (port == 4000) {
 }
 const db = mongojs(process.env.MONGODB_URL || config.MONGODB_URL);
 
-// static routes
-if(port == 4000)
-    app.use('/', express.static('./../frontend/public'));
-else
-    app.use('/', express.static('./../frontend/build'));
+
 app.use(bodyParser.json());
 
 // Global Middlewear
@@ -146,5 +142,11 @@ app.post('/login', (req, res) => {
         }
     })
 })
+
+// static routes
+if(port == 4000)
+    app.use('/', express.static('./../frontend/public'));
+else
+    app.use('/', express.static('./../frontend/build'));
 
 app.listen(port, () => console.log("Listening on port " + port));
