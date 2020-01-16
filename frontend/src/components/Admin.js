@@ -4,34 +4,51 @@ import AddCompany from './AddCompany'
 import { Button, Container, Row } from 'react-bootstrap'
 import AdminNavbar from './AdminNavbar'
 import Logout from './Logout'
+import axios from 'axios'
 
 class Admin extends Component {
 
     state = {
-        companies : [
-            { id: 1, companyName: "Crveni Taxi" },
-            { id: 2, companyName: "Sarajevo Taxi" }
-        ]
+        companies: {}
+    }
+
+    componentDidMount = () => {
+
+        let jwtToken = window.localStorage.getItem("jwtToken");
+        
+        axios.get('http://localhost:4000/admin/company', { headers: { Authorization: jwtToken } } )
+        .then(res => {
+            this.setState({
+                companies: res.data
+            })
+        })
+
     }
 
     registerCompany = (company) => {
-        company.id = Math.random(100);
-        let companies = [...this.state.companies, company];
-        this.setState({
-            companies
+        let jwtToken = window.localStorage.getItem("jwtToken");
+        axios.post('http://localhost:4000/admin/company', company, { headers: { Authorization: jwtToken } } )
+        .then(res => {
+            company._id = res.data._id;
+            let companies = [...this.state.companies, company];
+            this.setState({
+                companies
+            })
         })
     }
 
     deleteCompany = (id) => {
         console.log("Deleting company " + id);
-        
-        const companies = this.state.companies.filter(company => {
-            return company.id !== id
-        })
-
-        this.setState({
-            companies
-        })
+        let jwtToken = window.localStorage.getItem("jwtToken");
+        axios.delete(`http://localhost:4000/admin/company/${id}`, { headers: { Authorization: jwtToken } })
+            .then(res => {
+                const companies = this.state.companies.filter(company => {
+                    return company._id !== id
+                })
+                this.setState({
+                    companies
+                })
+            })
 
     }
 
@@ -39,10 +56,13 @@ class Admin extends Component {
 
         const companyList = this.state.companies.length ? (
             this.state.companies.map(company => {
+                
+                
                 return (
-                    <div className = "collection-item" key = { company.id }>
-                        <span>{ company.companyName }</span>
-                         <Button variant = "danger" onClick = { () => { this.deleteCompany(company.id) } }> Delete </Button>
+                    <div className = "collection-item" key = { company._id }>
+                        <span style={{margin: "40px"}}>{ company.name }</span>
+                         <Button variant = "danger" onClick = { () => { this.deleteCompany(company._id) } }> Delete </Button>
+                         <br></br><br></br>
                     </div>
                 )
             })
@@ -54,6 +74,7 @@ class Admin extends Component {
             <BrowserRouter>
                 <div className="App">
                     <AdminNavbar />
+                    <br></br>
                     <Route exact path='/logout' component={Logout} />
                     </div>
 

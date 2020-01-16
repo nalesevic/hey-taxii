@@ -36,19 +36,39 @@ module.exports = (router, db, mongojs, config, jwt) => {
 
     })
 
-    router.post('/profile', (req, res) => {
-        console.log("updating company profile");
-        
-        db.company.findAndModify({
-            query: { companyID: mongojs.ObjectID(companyID) },
-            update: { $set: req.body },
+    router.put('/password', (req, res) => {
+        console.log("updating password " + req.body.email + " " + req.body.password);
+         db.user.findAndModify({
+            query: { email: req.body.email },
+            update: { $set: { password: req.body.password } },
             new: true
-        }, (error, doc, lastErrorObject) => res.json(doc));
+        }, (error, doc, lastErrorObject) => {
+            if(error)
+                throw error;
+        });
+    })
+
+    router.put('/profile', (req, res) => {
+        console.log("updating company profile " + req.body.companyID);
+        
+        db.user.findAndModify({
+            query: { email: req.body.email },
+            update: { $set: { 
+                name: req.body.name, 
+                email: req.body.email, 
+                address: req.body.address,
+                phone: req.body.phone,
+            } },
+            new: true
+        }, (error, doc, lastErrorObject) => {
+            if(error)
+                throw error;
+        });
     })
 
     router.get('/profile', (req, res) => {
         console.log("retrieving company profile");
-        db.company.findOne( { companyID: mongojs.ObjectID(companyID) }, (error, doc) => {
+        db.user.findOne( { _id: mongojs.ObjectID(companyID) }, (error, doc) => {
             if(error)
                 throw error;
             
@@ -58,11 +78,41 @@ module.exports = (router, db, mongojs, config, jwt) => {
     
 
     router.get('/drivers', (req, res) => {
-        db.driver.find({}, (error, docs) => res.status(200).send(docs));
+        db.driver.find({companyID: mongojs.ObjectID(companyID)}, (error, docs) => res.status(200).send(docs));
     })
 
     router.get('/vehicles', (req, res) => {
         db.vehicle.find({}, (error, docs) => res.status(200).send(docs));
+    })
+
+    router.post('/vehicles', (req, res) => {
+        let data = {
+            ...req.body,
+            companyID: mongojs.ObjectID(companyID)
+        }
+        console.log(data);
+                
+        db.vehicle.insert(data, (error, doc) => {
+            if(error)
+                throw error;
+            res.json(doc);
+        });
+    })
+
+    router.put('/vehicles/:id', (req, res) => {
+        console.log("updating vehicle " + req.body.year);
+        
+        var id = req.params.id;
+        db.vehicle.findAndModify({
+            query: { _id: mongojs.ObjectID(id) },
+            update: { $set: req.body },
+            new: true
+        }, (error, doc, lastErrorObject) => res.json(doc));
+    })
+
+    router.delete('/vehicles/:id', (req, res) => {
+        var id = req.params.id;
+        db.vehicle.remove({ _id: mongojs.ObjectID(id) }, [true], (error, doc) => res.json(doc));
     })
     
     router.get('/driver/:id', (req, res) => {

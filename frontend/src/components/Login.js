@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import Form from 'react-bootstrap/Form'
-import {Button, Row} from 'react-bootstrap'
+import { Row, Form, Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import axios from 'axios'
-import { Redirect } from 'react-router-dom'
-import Company from './Company';
-import Admin from './Admin'
+import './Login.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faUserLock } from '@fortawesome/free-solid-svg-icons'
 
 class Login extends Component {
+
+    constructor(props) {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+    }
 
     state = {
         email: '',
@@ -14,65 +19,59 @@ class Login extends Component {
         userType: ''
     }
 
-    handleEmailChange = (e) => {
+    handleChange(e) {
         this.setState({
-            email: e.target.value,
-        })
+            [e.target.name]: e.target.value
+        });
     }
 
-    handlePasswordChange = (e) => {
-        this.setState({
-            password: e.target.value,
-        })
-    }
 
     handleLogin = (e) => {
         e.preventDefault();
         console.log("handling submit");
-        
+
         axios.post('http://localhost:4000/login', this.state).then(response => {
             window.localStorage.setItem('jwtToken', response.data[0]);
             this.setState({ userType: response.data[1] });
-            if(this.state.userType === 'company')
+            if (this.state.userType === 'company')
                 this.props.history.push('/company');
-            else if(this.state.userType === 'admin')
-                this.props.history.push('/admin');        
-          }).catch((error) => {
-              console.log(error);
-          })
+            else if (this.state.userType === 'admin')
+                this.props.history.push('/admin');
+        }).catch((error) => {
+            console.log(error);
+        })
 
     }
 
     render() {
         return (
-            <Form onSubmit = {this.handleSubmit} >
-                <Row className='justify-content-md-center'>
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control onChange = {this.handleEmailChange} type="email" placeholder="Enter email" />
-                        <Form.Text className="text-muted">
-                        We'll never share your email with anyone else.
-                        </Form.Text>
-                    </Form.Group>
-                </Row>
+            <div className="Login">
+                <Form onSubmit={this.handleSubmit} >
+                    <FormGroup controlId="email" >
+                        <FontAwesomeIcon icon={faEnvelope} /> <span><FormLabel>Email</FormLabel></span>
+                        <FormControl
+                            autoFocus
+                            type="email"
+                            name="email"
+                            onChange={this.handleChange}
+                        />
+                    </FormGroup>
+                    <FormGroup controlId="password" >
+                        <FontAwesomeIcon icon={faUserLock} /> <span><FormLabel>Password</FormLabel></span>
+                        <FormControl
+                            onChange={this.handleChange}
+                            type="password"
+                            name="password"
+                        />
+                    </FormGroup>
 
-                <Row className='justify-content-md-center'>
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control onChange = {this.handlePasswordChange} type="password" placeholder="Password" />
-                    </Form.Group>
-                </Row>
-
-                <Row className='justify-content-md-center'>
-                    <Button variant="primary" type="submit" onClick = {this.handleLogin}>
-                        Login
+                    <Row className='justify-content-md-center'>
+                        <Button variant="primary" type="submit" onClick={this.handleLogin}>
+                            Login
                     </Button>
-                </Row>
-            </Form>
-                //  <Button variant="primary" type="submit" onClick = {this.handleLogin}>
-                //     Login
-                // </Button>
-            
+                    </Row>
+                </Form>
+            </div>
         );
     }
 }

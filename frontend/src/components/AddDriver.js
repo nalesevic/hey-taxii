@@ -14,9 +14,9 @@ class AddDriver extends Component {
         last_name: '',
         email: '',
         password: '',
-        vehicle: '',
+        vehicleRegistrationNumber: '',
         address: '',
-        phone: ''
+        phone: '',
     }
 
     handleChange(e) {
@@ -46,7 +46,7 @@ class AddDriver extends Component {
             last_name: '',
             email: '',
             password: '',
-            vehicle: '',
+            vehicleRegistrationNumber: '',
             address: '',
             phone: ''
         })
@@ -85,8 +85,8 @@ class AddDriver extends Component {
                             </Form.Group>
 
                             <Form.Group>
-                                <Form.Label>Driver vehicle:</Form.Label>
-                                <Form.Control name='vehicle' type="text" onChange = { this.handleChange } placeholder="Enter driver vehicle" />
+                                <Form.Label>Driver Vehicle Registration Number:</Form.Label>
+                                <Form.Control name='vehicleRegistrationNumber' type="text" onChange = { this.handleChange } placeholder="Enter driver vehicle" />
                             </Form.Group>
 
                             <Form.Group>
@@ -96,7 +96,7 @@ class AddDriver extends Component {
 
                             <Form.Group>
                                 <Form.Label>Driver Password:</Form.Label>
-                                <Form.Control name='password' type="text" onChange = { this.handleChange } placeholder="Enter driver password" />
+                                <Form.Control name='password' type="password" onChange = { this.handleChange } placeholder="Enter driver password" />
                             </Form.Group>
 
                             <Button variant="success" type="submit">

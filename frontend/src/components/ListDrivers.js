@@ -22,7 +22,6 @@ class ListDrivers extends Component {
         }
         else
             this.setState({ showDriverInfo: false })
-    
       }
 
       collapseInfo = (s) => {
@@ -43,7 +42,7 @@ class ListDrivers extends Component {
                   <p className="center">No registered drivers</p>
               );
           return (
-              <div className="driverss collection">
+              <div className="drivers collection">
                   {driverList}
               </div>
           )

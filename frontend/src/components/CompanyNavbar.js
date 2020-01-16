@@ -1,20 +1,25 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { Nav, Form, Navbar, FormControl, Button } from 'react-bootstrap'
+import logo from './../img/heytaxilogo.png'; 
 
 const CompanyNavbar = () => {
   return (
-    <nav className="nav-wrapper black darken-3">
-      <div className="container">
-        <NavLink to='/company' className="left">Hey Taxi</NavLink>
-        <ul className="right">
-            <li><NavLink to='/company'>Home</NavLink></li>
-            <li><NavLink to='/profile'>Profile</NavLink></li>
-            <li><NavLink to='/drivers'>Drivers</NavLink></li>
-            <li><NavLink to='/vehicles'>Vehicles</NavLink></li>
-            <li><a href='/logout'>Logout</a></li>
-        </ul>
-      </div>
-    </nav> 
+    <Navbar bg="dark" variant="dark">
+      <Navbar.Brand><img
+        src={logo}
+        height={35}
+        className="d-inline-block align-top"
+      /></Navbar.Brand>
+      <Navbar.Brand as={NavLink} to='/company'>Hey<span style={{ color: '#ffff00' }}>Taxi</span></Navbar.Brand>
+      <Nav className="justify-content-end" style={{ width: "100%" }} >
+        <Nav.Link as={NavLink} activeStyle={{ color: '#ffff00' }} to='/company'>Home</Nav.Link>
+        <Nav.Link as={NavLink} activeStyle={{ color: '#ffff00' }} to='/profile'>Profile</Nav.Link>
+        <Nav.Link as={NavLink} activeStyle={{ color: '#ffff00' }} to='/drivers'>Drivers</Nav.Link>
+        <Nav.Link as={NavLink} activeStyle={{ color: '#ffff00' }} to='/vehicles'>Vehicles</Nav.Link>
+        <Nav.Link href='/logout'>Logout</Nav.Link>
+      </Nav>
+    </Navbar>
   )
 }
 

@@ -6,11 +6,16 @@ module.exports = (router, db, mongojs, config, jwt) => {
 
         let authorization = req.get('Authorization');
         if(authorization) {
+            console.log("1");
+
             jwt.verify(authorization, config.JWT_SECRET || process.env.JWT_SECRET, (error, decoded) => {
-                let type = decoded.type;
+                let type = decoded.userType;
+                console.log("2");
                 if(type == 'admin') {
+                    console.log("3");
                     next();
                 } else {
+                    console.log("4");
                     res.status(401).json('Unauthorized access');
                 }
             });
@@ -20,22 +25,31 @@ module.exports = (router, db, mongojs, config, jwt) => {
 
     });
 
-    router.post('/company', (req, rest) => {
-        db.company.insert(req.body, (error, doc) => res.json(doc));
+    router.get('/company', (req, res) => {
+        db.user.find({ type: 'company' }, (error, docs) => {
+            res.send(docs);
+        });
     });
 
-    router.put('/company/:id', (req, rest) => {
+    router.post('/company', (req, res) => {
+        req.body.type = 'company';
+        db.user.insert(req.body, (error, doc) => res.json(doc));
+    });
+
+    router.put('/company/:id', (req, res) => {
         let id = req.params.id;
-        db.company.findAndModify({
+        db.user.findAndModify({
             query: { _id: mongojs.ObjectId(id) },
             update: { $set: req.body },
             new: true
         }, (error, doc) => res.json(doc));
     });
 
-    router.delete('/company/:id', (req, rest) => {
+    router.delete('/company/:id', (req, res) => {
         let id = req.params.id;
-        db.company.remove({ _id: mongojs.ObjectId(id) }, (error, doc) => res.json(doc));
+        console.log("brisem " + id);
+        
+        db.user.remove({ _id: mongojs.ObjectId(id) }, (error, doc) => res.json(doc));
     });
 
 }

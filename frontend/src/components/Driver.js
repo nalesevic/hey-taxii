@@ -24,7 +24,7 @@ class Driver extends Component {
     let d = this.state.drivers;
     d.push(driver)
     this.setState({ drivers: d });
-    alert(JSON.stringify(this.state.drivers, null, 4));
+   // alert(JSON.stringify(this.state.drivers, null, 4));
   }
 
   // deleteDriver = (id) => {
@@ -61,8 +61,6 @@ class Driver extends Component {
           <div className="driver card" key={driver._id}>
             <div className="card-content">
               <span className="card-title">{driver.first_name} {driver.last_name} {driver.vehicle} {driver.phone} </span>
-
-
             </div>
           </div>
         )
@@ -73,7 +71,7 @@ class Driver extends Component {
 
     return (
       <div>
-        <Button onClick={this.handleAddDriver} >Add Driver</Button>
+        <Button variant="success" onClick={this.handleAddDriver} >Add Driver</Button>
         <Container className="addDriver-form">
           {this.state.showDriverForm ? <AddDriver addToList={this.addToList} /> : null}
         </Container>

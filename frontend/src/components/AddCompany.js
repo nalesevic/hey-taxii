@@ -1,42 +1,29 @@
 import React, {Component} from 'react'
 import { Form, Button, Container, Row } from 'react-bootstrap'
+import axios from 'axios'
 
 class AddCompany extends Component {
     
+    constructor(props) {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+    }
+    
     state = {
-        companyName: '',
-        companyEmail: '',
-        companyPassword: ''
+        name: '',
+        email: '',
+        password: ''
     }
 
-    handleNameChange = (e) => {
+    handleChange(e) {
         this.setState({
-            companyName: e.target.value,
-        })
-    }
-
-    handleEmailChange = (e) => {
-        this.setState({
-            companyEmail: e.target.value,
-        })
-    }
-
-    handlePasswordChange = (e) => {
-        this.setState({
-            companyPassword: e.target.value,
-        })
+          [e.target.name]: e.target.value
+        });
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state.companyPassword)
         this.props.registerCompany(this.state);
-        this.setState({
-            companyName: '',
-            companyEmail: '',
-            companyPassword: ''
-        })
-
     }
 
     render() {
@@ -52,17 +39,17 @@ class AddCompany extends Component {
                         <br></br>
                             <Form.Group>
                                 <Form.Label>Company name:</Form.Label>
-                                <Form.Control name='companyName' type="text" onChange = { this.handleNameChange } placeholder="Enter company name" value = { this.state.companyName } />
+                                <Form.Control name='name' type="text" onChange = { this.handleChange } placeholder="Enter company name" value = { this.state.companyName } />
                             </Form.Group>
 
                             <Form.Group>
                                 <Form.Label>Email:</Form.Label>
-                                <Form.Control name='companyEmail' type="text" onChange = { this.handleEmailChange } placeholder="Enter company email" value = { this.state.companyEmail }/>
+                                <Form.Control name='email' type="email" onChange = { this.handleChange } placeholder="Enter company email" value = { this.state.companyEmail }/>
                             </Form.Group>
 
                             <Form.Group>
                                 <Form.Label>Password:</Form.Label>
-                                <Form.Control name='companyPassword' type="text" onChange = { this.handlePasswordChange } placeholder="Enter company password" value = { this.state.companyPassword } />
+                                <Form.Control name='password' type="password" onChange = { this.handleChange } placeholder="Enter company password" value = { this.state.companyPassword } />
                             </Form.Group>
 
                             <Button variant="success" type="submit" onClick={this.registerCompany}>
