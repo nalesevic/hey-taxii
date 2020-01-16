@@ -63,7 +63,7 @@ class CompanyProfile extends Component {
                                     Name:
                                 </Form.Label>
                                 <Col sm="10">
-                                    <Form.Control name="name" onChange={this.handleNameChange} plaintext defaultValue={this.state.company.name} />
+                                    <Form.Control name="name" onChange={this.handleNameChange} type="text" defaultValue={this.state.company.name} />
                                 </Col>
                             </Form.Group>
 
@@ -72,7 +72,7 @@ class CompanyProfile extends Component {
                                     Email:
                                 </Form.Label>
                                 <Col sm="10">
-                                    <Form.Control name="email" onChange={this.handleEmailChange} plaintext readOnly defaultValue={this.state.company.email} />
+                                    <Form.Control name="email" readOnly type="text" defaultValue={this.state.company.email} />
                                 </Col>
                             </Form.Group>
 
@@ -81,7 +81,7 @@ class CompanyProfile extends Component {
                                     Address:
                                 </Form.Label>
                                 <Col sm="10">
-                                    <Form.Control name="address" onChange={this.handleAddressChange} plaintext defaultValue={this.state.company.address} />
+                                    <Form.Control name="address" onChange={this.handleAddressChange} type="text" defaultValue={this.state.company.address} />
                                 </Col>
                             </Form.Group>
 
@@ -91,7 +91,7 @@ class CompanyProfile extends Component {
                                     Phone:
                                 </Form.Label>
                                 <Col sm="10">
-                                    <Form.Control name="phone" onChange={this.handlePhoneChange} plaintext defaultValue={this.state.company.phone} />
+                                    <Form.Control name="phone" onChange={this.handlePhoneChange} type="number" defaultValue={this.state.company.phone} />
                                 </Col>
                             </Form.Group>
                         </Container>

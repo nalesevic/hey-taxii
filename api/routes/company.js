@@ -81,6 +81,9 @@ module.exports = (router, db, mongojs, config, jwt) => {
         })
     })
 
+    router.get('/charts', (req, res) => {
+        db.ride.find({ companyID: mongojs.ObjectID(companyID) }, { numRides: 1 }, (error, docs) => res.status(200).send(docs));
+    })
 
     router.get('/drivers', (req, res) => {
         db.driver.find({ companyID: mongojs.ObjectID(companyID) }, (error, docs) => res.status(200).send(docs));
