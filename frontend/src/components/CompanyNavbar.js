@@ -6,11 +6,12 @@ import logo from './../img/heytaxilogo.png';
 const CompanyNavbar = () => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
-      <Navbar.Brand><img
+      <Navbar.Brand as={NavLink} to='/company'> <img
         src={logo}
         height={35}
         className="d-inline-block align-top"
       /></Navbar.Brand>
+       <Navbar.Brand as={NavLink} to='/company'>Hey<span style={{ color: '#ffff00' }}>Taxi</span></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="justify-content-end mr-auto" style={{ width: "100%" }} >
